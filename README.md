@@ -1,9 +1,9 @@
 # Spring RESTful Api Test
 
 ## List
-[1. Overview](#overview)
-[2. Project info](#project-info)
-[3. Description](#description)
+1. [Overview](#overview)
+2. [Project info](#project-info)
+3. [Description](#description)
 
 
 
@@ -60,7 +60,7 @@ helloRest
         │   └── home.jsp
         └── web.xml
 ```
-	- target과 out 폴더는 제외시켰습니다.
+   - target과 out 폴더는 제외시켰습니다.
 
 
 ## Description
@@ -75,7 +75,7 @@ helloRest
 ### user 모델
 ```
 User {
-	id : long;
+    id : long;
     name : String;
     age : int;
     salary : double;
