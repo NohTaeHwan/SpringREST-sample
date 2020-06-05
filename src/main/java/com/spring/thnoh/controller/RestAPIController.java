@@ -1,7 +1,6 @@
 package com.spring.thnoh.controller;
 
 
-import com.spring.thnoh.exception.ErrorResponse;
 import com.spring.thnoh.exception.UserDuplicatedException;
 import com.spring.thnoh.exception.UserNotFoundException;
 import com.spring.thnoh.model.User;
@@ -13,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 @RestController //@Controller + @ResponseBody
@@ -64,7 +63,7 @@ public class RestAPIController {
      * @param ucBuilder : 새로 만들어진 사용자의 uri를 헤더에 넣어주기 위한 param
      * @return Body부분에 아무것도 넣지않고 헤더에만 넣어서 전달하기 때문에 <Void>로 함.
      */
-    @RequestMapping(value = "/user",method = RequestMethod.POST)
+    @RequestMapping(value = "/users",method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody User user,
                                            UriComponentsBuilder ucBuilder){
 
@@ -133,40 +132,7 @@ public class RestAPIController {
         return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
     }
 
-    /**
-     * Not Found error handler
-     *
-     * @param req
-     * @param ex
-     * @return
-     */
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFoundException(HttpServletRequest req, UserNotFoundException ex ){
 
-        String requestURL = req.getRequestURL().toString();
-
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setRequestURL(requestURL);
-        errorResponse.setErrorCode("user.notfound.exception");
-        errorResponse.setErrorMsg("User with id " + ex.getId() + " not found");
-
-        return new ResponseEntity<ErrorResponse>(errorResponse,HttpStatus.NOT_FOUND);
-
-    }
-
-    @ExceptionHandler(UserDuplicatedException.class)
-    public ResponseEntity<ErrorResponse> handleUserDuplicatedException(HttpServletRequest req, UserDuplicatedException ex ){
-
-        String requestURL = req.getRequestURL().toString();
-
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setRequestURL(requestURL);
-        errorResponse.setErrorCode("user.duplicated.exception");
-        errorResponse.setErrorMsg("Unable to create. A user with name " + ex.getName() + " already exist");
-
-        return new ResponseEntity<ErrorResponse>(errorResponse,HttpStatus.CONFLICT);
-
-    }
 
 
 
