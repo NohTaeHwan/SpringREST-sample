@@ -19,6 +19,10 @@ function getUsers(){
                     content.push("<td>" + JSON.stringify(data[i].name).replace(/\"/gi, "") +"</td>");
                     content.push("<td>" + JSON.stringify(data[i].age) +"</td>");
                     content.push("<td>" + JSON.stringify(data[i].salary) +"</td>");
+                    content.push("<td>"
+                        +"<a href='"+JSON.stringify(data[i].id)+"'>"+"<i class=\"fas fa-edit\"></i>"+"</a>"
+                        +"<a href='"+JSON.stringify(data[i].id)+"'>"+"<i class=\"fas fa-minus\"></i>"+"</a>"
+                        +"</td>");
                     content.push("</tr>");
                 }
 

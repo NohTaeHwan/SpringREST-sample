@@ -6,7 +6,6 @@
 3. [Description](#description)
 
 
-
 ## Overview
 
 spring을 이용한 RESTful Api 서버 샘플 코드입니다. user라는 모델 bean을 만들어 테스트했으며 db는 따로 연결하지 않고 객체로 처리했습니다(그래서 따로 DAO는 없습니다). json 데이터 처리로는 jackson databind 라이브러리를 이용하였습니다. 추가적으로 Not Found , duplicate 에러 핸들러를 커스텀으로 작성하였습니다.
