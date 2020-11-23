@@ -37,7 +37,10 @@
 
         </tbody>
     </table>
-    <button type="button" class="btn btn-success" id="read" onclick="getUsers()">전체 조회</button>
+    <a href="<c:url value="/add"/>" type="button" class="btn btn-success">추가</a>
+    <button type="button" class="btn btn-danger" id="clear">초기화</button>
+
+
 </div>
 
 <script src="<c:url value="/resources/js/async.js"/>"></script>
