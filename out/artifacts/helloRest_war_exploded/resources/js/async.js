@@ -61,23 +61,16 @@ jQuery.fn.serializeObject = function() {
 $('#create').on('click',function () {
 
     var formData = $('#form').serializeObject();
-    /*
-    var formData = {};
-    formData["name"] = $('#name').val();
-    formData["age"] = $('#age').val();
-    formData["salary"] = $('#salary').val();
-*/
-    console.log(JSON.parse(formData));
+
 
     $.ajax({
         url: 'api/users',
         type: "POST",
         data: JSON.stringify(formData) ,
         contentType: "application/json; charset=utf-8;",
-        dataType: "json",
         success:function () {
             alert("추가 성공");
-
+            location.href = "/helloRest";
         },
         error: function (error,textStatus) {
             alert("추가 실패");
