@@ -1,12 +1,13 @@
 
+/**
+ * Ajax getUsers : GET
+ * 페이지 로드 시 유저 정보 조회
+ */
 //page load 할 때 전부 read
 $('#result').ready(function () {
     $.ajax({
         url: 'api/users',
         type: "GET",
-        data: {
-            id : '1'
-        },
         contentType: "application/json; charset=utf-8;",
         dataType: "json",
         success: function(data){
@@ -21,8 +22,8 @@ $('#result').ready(function () {
                     content.push("<td>" + JSON.stringify(data[i].age) +"</td>");
                     content.push("<td>" + JSON.stringify(data[i].salary) +"</td>");
                     content.push("<td>"
-                        +"<a href='"+JSON.stringify(data[i].id)+"'>"+"<i class=\"fas fa-edit\"></i>"+"</a>"
-                        +"<a href='"+JSON.stringify(data[i].id)+"'>"+"<i class=\"fas fa-minus\"></i>"+"</a>"
+                        +"<a class='updateBtn' id='"+JSON.stringify(data[i].id)+"' href='#'>"+"<i class=\"fas fa-edit\"></i>"+"</a>"
+                        +"<a class='deleteBtn' id='"+JSON.stringify(data[i].id)+"' href='#'>"+"<i class=\"fas fa-minus\"></i>"+"</a>"
                         +"</td>");
                     content.push("</tr>");
 
@@ -38,25 +39,38 @@ $('#result').ready(function () {
     });
 });
 
-jQuery.fn.serializeObject = function() {
-    var obj = null;
-    try {
-        if(this[0].tagName && this[0].tagName.toUpperCase() == "FORM" ) {
-            var arr = this.serializeArray();
-            if(arr){ obj = {};
-                jQuery.each(arr, function() {
-                    obj[this.name] = this.value; });
-            }
+/**
+ * Ajax delete one user : DELETE
+ * 유저 한명 삭제
+ *
+ */
+//동적으로 생성된 요소에 대해서는 on 을 사용하여 위임된 바인딩 이용
+$('#result').on('click',"a.deleteBtn",function () {
+
+    var id = $(this).attr("id");
+
+    $.ajax({
+        url: 'api/users/'+id,
+        type: "DELETE",
+        contentType: "application/json; charset=utf-8;",
+        dataType : 'json',
+        success:function () {
+            alert("삭제 성공");
+            location.href = "/helloRest";
+        },
+        error: function (error,textStatus) {
+            alert("초기화 실패");
+            console.log(error);
+            console.log(textStatus);
         }
-    }catch(e) {
-        alert(e.message);
-    }finally {}
-    return obj;
-}
+    });
+
+});
 
 /**
  * Ajax create user : POST
- * form -> json
+ * 유저 생성
+ * redirect to /helloRest
  */
 $('#create').on('click',function () {
 
@@ -77,15 +91,51 @@ $('#create').on('click',function () {
             console.log(error);
             console.log(textStatus);
         }
-    })
+    });
 
 
 });
 
-
-//추후에 delete all 기능
+/**
+ * Ajax delete All user : DELETE
+ */
 $('#clear').on("click",function () {
-    $('#result').empty();
+
+    $.ajax({
+        url: 'api/users',
+        type: "DELETE",
+        contentType: "application/json; charset=utf-8;",
+        dataType : 'json',
+        success:function () {
+            alert("초기화 성공");
+            $('#result').empty();
+        },
+        error: function (error,textStatus) {
+            alert("초기화 실패");
+            console.log(error);
+            console.log(textStatus);
+        }
+    });
 });
 
 
+/**
+ * data -> json parse 함수
+ *
+ * @returns json parsed data
+ */
+jQuery.fn.serializeObject = function() {
+    var obj = null;
+    try {
+        if(this[0].tagName && this[0].tagName.toUpperCase() == "FORM" ) {
+            var arr = this.serializeArray();
+            if(arr){ obj = {};
+                jQuery.each(arr, function() {
+                    obj[this.name] = this.value; });
+            }
+        }
+    }catch(e) {
+        alert(e.message);
+    }finally {}
+    return obj;
+};
