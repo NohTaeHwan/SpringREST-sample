@@ -1,45 +1,5 @@
 
 /**
- * Ajax getUsers : GET
- * 페이지 로드 시 유저 정보 조회
- */
-//page load 할 때 전부 read
-$('#result').ready(function () {
-    $.ajax({
-        url: 'api/users',
-        type: "GET",
-        contentType: "application/json; charset=utf-8;",
-        dataType: "json",
-        success: function(data){
-            $('#result').empty();
-
-            if(data != null){
-                var content = [];
-
-                for(var i=0; i<data.length; i++){
-                    content.push("<tr>");
-                    content.push("<td>" + JSON.stringify(data[i].name).replace(/\"/gi, "") +"</td>");
-                    content.push("<td>" + JSON.stringify(data[i].age) +"</td>");
-                    content.push("<td>" + JSON.stringify(data[i].salary) +"</td>");
-                    content.push("<td>"
-                        +"<a class='updateBtn' id='"+JSON.stringify(data[i].id)+"' href='#'>"+"<i class=\"fas fa-edit\"></i>"+"</a>"
-                        +"<a class='deleteBtn' id='"+JSON.stringify(data[i].id)+"' href='#'>"+"<i class=\"fas fa-minus\"></i>"+"</a>"
-                        +"</td>");
-                    content.push("</tr>");
-
-                }
-
-                $('#result').append(content);
-            }
-
-        },
-        error: function(){
-            alert("restController err");
-        }
-    });
-});
-
-/**
  * Ajax delete one user : DELETE
  * 유저 한명 삭제
  *
@@ -50,13 +10,13 @@ $('#result').on('click',"a.deleteBtn",function () {
     var id = $(this).attr("id");
 
     $.ajax({
-        url: 'api/users/'+id,
+        url: '/api/users/'+id,
         type: "DELETE",
         contentType: "application/json; charset=utf-8;",
         dataType : 'json',
         success:function () {
             alert("삭제 성공");
-            location.href = "/helloRest";
+            location.href = "/";
         },
         error: function (error,textStatus) {
             alert("초기화 실패");
@@ -74,17 +34,17 @@ $('#result').on('click',"a.deleteBtn",function () {
  */
 $('#create').on('click',function () {
 
-    var formData = $('#form').serializeObject();
+    var formData = $('#addForm').serializeObject();
 
 
     $.ajax({
-        url: 'api/users',
+        url: '/api/users',
         type: "POST",
         data: JSON.stringify(formData) ,
         contentType: "application/json; charset=utf-8;",
         success:function () {
             alert("추가 성공");
-            location.href = "/helloRest";
+            location.href = "/";
         },
         error: function (error,textStatus) {
             alert("추가 실패");
@@ -95,6 +55,33 @@ $('#create').on('click',function () {
 
 
 });
+/**
+ * Ajax update user : PUT
+ */
+$('#update').on('click',function () {
+
+    var formData = $('#updateForm').serializeObject();
+    var id = formData["id"];
+
+    $.ajax({
+        url: '/api/users/'+id,
+        type: "PUT",
+        data: JSON.stringify(formData) ,
+        contentType: "application/json; charset=utf-8;",
+        success:function () {
+            alert("수정 성공");
+            location.href = "/";
+        },
+        error: function (error,textStatus) {
+            alert("수정 실패");
+            console.log(error);
+            console.log(textStatus);
+        }
+    });
+
+
+});
+
 
 /**
  * Ajax delete All user : DELETE
@@ -102,7 +89,7 @@ $('#create').on('click',function () {
 $('#clear').on("click",function () {
 
     $.ajax({
-        url: 'api/users',
+        url: '/api/users',
         type: "DELETE",
         contentType: "application/json; charset=utf-8;",
         dataType : 'json',
@@ -117,6 +104,8 @@ $('#clear').on("click",function () {
         }
     });
 });
+
+
 
 
 /**

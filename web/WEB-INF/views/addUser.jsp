@@ -28,7 +28,7 @@
             <h1>연봉 정보 추가</h1>
         </div>
 
-        <sf:form id="form" method="post" modelAttribute="user">
+        <sf:form id="addForm" method="post" modelAttribute="user">
 
             <div class="form-group">
                 <label for="name">이름 </label>
@@ -52,7 +52,7 @@
 
 
     </div>
-    <script src="<c:url value="/resources/js/async.js"/>"></script>
+    <script src="<c:url value="/resources/js/crud.js"/>"></script>
 </body>
 </html>
 

@@ -41,5 +41,6 @@
     <button type="button" class="btn btn-danger" id="clear">초기화</button>
 </div>
 
-<script src="<c:url value="/resources/js/async.js"/>"></script>
+<script src="<c:url value="/resources/js/load.js"/>"></script>
+<script src="<c:url value="/resources/js/crud.js"/>"></script>
 </body>
