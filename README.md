@@ -8,26 +8,26 @@
 
 ## Overview
 
-spring을 이용한 RESTful Api 서버 샘플 코드입니다. user라는 모델 bean을 만들어 테스트했으며 db는 따로 연결하지 않고 객체로 처리했습니다(그래서 따로 DAO는 없습니다). json 데이터 처리로는 jackson databind 라이브러리를 이용하였습니다. 추가적으로 Not Found , duplicate 에러 핸들러를 커스텀으로 작성하였습니다.
+spring을 이용한 Restful Api 서버 샘플 코드입니다. user라는 모델 bean을 만들어 테스트했으며 db는 따로 연결하지 않고 객체로 처리했습니다(그래서 따로 DAO는 없습니다). json 데이터 처리로는 jackson databind 라이브러리를 이용하였습니다. 추가적으로 Not Found , duplicate 에러 핸들러를 커스텀으로 작성하였습니다. Ajax를 이용하여 비동기로 rest api 호출하였습니다.
 
 
 ## Project info
 
 
-### version info
+### Tech Stack
 - JDK 1.8
 - spring mvc 4.3.18
 - lombok 1.18.8
 - jackson-databind 2.9.8
+- Ajax , JQuery
 
 
 ### project structure
 - project framework : spring mvc , maven
 - Directory tree
 ```
-helloRest
 .
-├── lib
+├── README.md
 ├── pom.xml
 ├── src
 │   ├── main
@@ -51,16 +51,22 @@ helloRest
 │   └── test
 │       └── java
 └── web
-    └── WEB-INF
-        ├── servlets
-        │   ├── dispatcher-servlet.xml
-        │   └── service-servlet.xml
-        ├── views
-        │   └── home.jsp
-        └── web.xml
-```
-   - target과 out 폴더는 제외시켰습니다.
+    ├── WEB-INF
+    │   ├── servlets
+    │   │   ├── dispatcher-servlet.xml
+    │   │   └── service-servlet.xml
+    │   ├── views
+    │   │   ├── addUser.jsp
+    │   │   ├── home.jsp
+    │   │   └── updateUser.jsp
+    │   └── web.xml
+    └── resources
+        └── js
+            ├── crud.js
+            └── load.js
 
+
+```
 
 ## Description
 ### API 목록
@@ -81,3 +87,10 @@ User {
 }
 
 ```
+
+### Ajax
+
+- GET , POST , DELETE , PUT 메소드 Rest API 호출
+- 페이지 로드 : [load.js](https://github.com/NohTaeHwan/SpringREST-sample/blob/master/web/resources/js/load.js)
+- Rest API 호출 : [crud.js](https://github.com/NohTaeHwan/SpringREST-sample/blob/master/web/resources/js/crud.js)
+
